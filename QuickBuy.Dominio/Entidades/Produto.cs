@@ -9,7 +9,14 @@
 
         public override void Validate()
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(Nome))
+            {
+                AdicionarMensagem("Nome do produto não foi informado");
+            }
+            if (string.IsNullOrEmpty(Descricao))
+            {
+                AdicionarMensagem("Descrição do produto não foi informado");
+            }
         }
     }
 }
