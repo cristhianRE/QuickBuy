@@ -1,0 +1,54 @@
+<div class="text-center">
+  <form class="form-signin">
+
+    <h1 class="h4 mb-2 login">Login de Cliente</h1>
+    <label for="inputEmail" class="sr-only">Email</label>
+    <input type="email" id="inputEmail"
+           name="email" placeholder="Informe o seu Email"
+           class="form-control mb-2"
+           [ngClass] ="{
+            'is-invalid' : email.invalid && (email.dirty || email.touched),
+            'is-valid' : email.valid && (email.dirty || email.touched) 
+           }"
+           [(ngModel)]="usuario.email"
+           #email="ngModel"
+           required
+           email/>
+
+    <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
+      <div *ngIf="email.errors.required">
+        Preecha o Email.
+      </div>
+      <div *ngIf="email.errors.email">
+        Digite um Email válido.
+      </div>
+    </div>
+
+    <label for="inputSenha" class="sr-only">Senha</label>
+    <input type="password" id="inputSenha"
+           name="senha" placeholder="Senha"
+           class="form-control mb-3"
+           [ngClass] ="{
+            'is-invalid' : senha.invalid && (senha.dirty || senha.touched),
+            'is-valid' : senha.valid && (senha.dirty || senha.touched) 
+           }"
+           [(ngModel)]="usuario.senha"
+           #senha="ngModel"
+           required />
+
+    <div class="invalid-feedback mb-3" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+      <div *ngIf="senha.errors.required">
+        Preecha a Senha.
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-block mb-4" type="submit" (click)="entrar()">Entrar</button>
+
+    <img src="C:\Users\Cristhian\Desktop\ASP.NET Core +Entity Framework\5 ASP NET Core com Angular\QuickBuy\QuickBuy.Web\ClientApp\src\assets\img\quick-logo2.png" />
+
+    <div class="alert alert-primary" role="alert" *ngIf="usuarioAutenticado">
+      Usuário Autenticado!
+    </div>
+
+  </form>
+</div>
