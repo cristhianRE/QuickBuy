@@ -1,4 +1,4 @@
-import { Injectable, inject, Inject } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Usuario } from "../../models/usuario";
@@ -27,7 +27,7 @@ export class UsuarioServico {
     }
 
     public limpar_sessao() {
-        sessionStorage.setItem("usuario-autenticad", "");
+        sessionStorage.setItem("usuario-autenticado", "");
         this._usuario = null;
     }
 
@@ -41,9 +41,23 @@ export class UsuarioServico {
 
         var body = {
             email: usuario.email,
-            senha: usuario.senha
+            senha: usuario.senha,
         }
 
         return this.http.post<Usuario>(this.baseURL + "usuario/verificarusuario", body, { headers });
+    }
+
+    public cadastrarUsuario(usuario: Usuario): Observable<Usuario> {
+
+        const headers = new HttpHeaders().set('content-type', 'application/json');
+
+        var body = {
+            email: usuario.email,
+            senha: usuario.senha,
+            nome: usuario.nome,
+            sobreNome: usuario.sobreNome
+        }
+
+        return this.http.post<Usuario>(this.baseURL + "usuario", body, { headers });
     }
 }

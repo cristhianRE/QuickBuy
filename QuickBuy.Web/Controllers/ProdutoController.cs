@@ -21,7 +21,7 @@ namespace QuickBuy.Web.Controllers
         {
             try
             {
-                return Ok(_repositorio.ObterTodos());
+                return Ok();
                 //if (condicao == false)
                 //{
                 //     return BasRequest("")
