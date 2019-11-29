@@ -42,7 +42,14 @@
       </div>
     </div>
 
-    <button class="btn btn-primary btn-block mb-4" type="submit" (click)="entrar()">Entrar</button>
+    <button class="btn btn-primary btn-block mb-4" type="submit" (click)="entrar()" [disabled]="ativarSpinner">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativarSpinner"></span>
+      Entrar
+    </button>
+
+    <div class="alert alert-danger" *ngIf="mensagem">
+      {{ mensagem }}
+    </div>
 
     <img src="C:\Users\Cristhian\Desktop\ASP.NET Core +Entity Framework\5 ASP NET Core com Angular\QuickBuy\QuickBuy.Web\ClientApp\src\assets\img\quick-logo2.png" />
 
