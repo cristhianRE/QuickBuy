@@ -22,9 +22,14 @@ namespace QuickBuy.Dominio.Entidades
             _mensagemValidacao.Add(msg);
         }
 
+        public string ObterMensagensValidação()
+        {
+            return string.Join(". ", _mensagemValidacao);
+        }
+
         public abstract void Validate();
 
-        protected bool EhValido 
+        public bool EhValido 
         {
             get { return !_mensagemValidacao.Any(); }
         }

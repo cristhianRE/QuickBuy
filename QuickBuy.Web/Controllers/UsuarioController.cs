@@ -48,10 +48,17 @@ namespace QuickBuy.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post()
+        public ActionResult Post([FromBody] Usuario usuario)
         {
             try
             {
+                var objCadastrado = _repositorio.Obter(usuario.Email);
+                if (objCadastrado != null)
+                {
+                    return BadRequest("Usuario já cadastrado no sistema");
+                }
+
+                _repositorio.Adicionar(usuario);
                 return Ok();
             }
             catch (Exception ex)
