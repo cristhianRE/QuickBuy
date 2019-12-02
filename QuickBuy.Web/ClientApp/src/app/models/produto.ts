@@ -3,5 +3,7 @@ export class Produto {
     nome: string;
     descricao: string;
     preco: number;
-    nomeArquivo: string
+    nomeArquivo: string;
+    precoOriginal: number;
+    quantidade: number;
 }
