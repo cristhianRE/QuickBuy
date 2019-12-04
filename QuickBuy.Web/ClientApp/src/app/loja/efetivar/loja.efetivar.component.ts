@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { LojaCarrinhoCompras } from "../carrinho-compras/loja.carrinho.compras";
 import { Produto } from "../../models/produto";
+import { Pedido } from "../../models/pedido";
+import { UsuarioServico } from "../../servicos/usuario/usuario.servico";
+import { ItemPedido } from "../../models/itemPedido";
+import { PedidoServico } from "../../servicos/pedido/pedido.servico";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "loja-efetivar",
@@ -12,6 +17,11 @@ export class LojaEfetivarComponent implements OnInit {
     public carrinhoCompras: LojaCarrinhoCompras;
     public produtos: Produto[];
     public total: number;
+
+    constructor(private usuarioServico: UsuarioServico,
+        private pedidoServico: PedidoServico,
+        private router: Router) {
+    }
 
     ngOnInit(): void {
         this.carrinhoCompras = new LojaCarrinhoCompras();
@@ -41,5 +51,52 @@ export class LojaEfetivarComponent implements OnInit {
 
     public atualizarTotal() {
         this.total = this.produtos.reduce((acc, produto) => acc + produto.preco, 0);
+    }
+
+    public efetivarCompra() {
+
+        this.pedidoServico.efetivarCompra(this.criarPedido())
+            .subscribe(
+                pedidoId => {
+                    console.log(pedidoId);
+                    sessionStorage.setItem("pedidoId", pedidoId.toString());
+                    this.produtos = [];
+                    this.carrinhoCompras.limparCarrinho();
+                    this.router.navigate(["/compra-realizada-sucesso"]);
+                },
+                e => {
+                    console.log(e.error);
+                });
+    }
+
+    public criarPedido(): Pedido {
+
+        let pedido = new Pedido();
+        pedido.usuarioId = this.usuarioServico.usuario.id;
+        pedido.cep = "122323";
+        pedido.cidade = "Sao Paulo";
+        pedido.estado = "Sao Paulo ";
+        pedido.dataPrevisaoEntrega = new Date();
+        pedido.formaPagamentoId = 1;
+        pedido.numeroEndereco = "12";
+        pedido.enderecoCompleto = "akjdhajsdhajshdjas";
+
+        this.produtos = this.carrinhoCompras.obterProdutos();
+
+        for (let produto of this.produtos) {
+            let itemPedido = new ItemPedido();
+            itemPedido.produtoId = produto.id;
+
+            if (!produto.quantidade) {
+                produto.quantidade = 1;
+            }
+            itemPedido.quantidade = produto.quantidade;
+
+            pedido.itensPedido.push(itemPedido);
+
+        }
+
+        return pedido;
+
     }
 }

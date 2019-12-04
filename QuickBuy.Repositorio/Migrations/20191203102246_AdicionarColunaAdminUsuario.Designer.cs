@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuickBuy.Repositorio.Contexto;
 
 namespace QuickBuy.Repositorio.Migrations
 {
     [DbContext(typeof(QuickBuyContexto))]
-    partial class QuickBuyContextoModelSnapshot : ModelSnapshot
+    [Migration("20191203102246_AdicionarColunaAdminUsuario")]
+    partial class AdicionarColunaAdminUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,9 +25,6 @@ namespace QuickBuy.Repositorio.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("PedidoId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProdutoId")
                         .HasColumnType("int");
 
@@ -33,8 +32,6 @@ namespace QuickBuy.Repositorio.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
 
                     b.ToTable("ItemPedidos");
                 });
@@ -136,6 +133,9 @@ namespace QuickBuy.Repositorio.Migrations
                         .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
                         .HasMaxLength(50);
 
+                    b.Property<int?>("PedidoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasColumnType("varchar(400) CHARACTER SET utf8mb4")
@@ -147,6 +147,8 @@ namespace QuickBuy.Repositorio.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
 
                     b.ToTable("Usuarios");
                 });
@@ -192,13 +194,6 @@ namespace QuickBuy.Repositorio.Migrations
                         });
                 });
 
-            modelBuilder.Entity("QuickBuy.Dominio.Entidades.ItemPedido", b =>
-                {
-                    b.HasOne("QuickBuy.Dominio.Entidades.Pedido", null)
-                        .WithMany("ItensPedido")
-                        .HasForeignKey("PedidoId");
-                });
-
             modelBuilder.Entity("QuickBuy.Dominio.Entidades.Pedido", b =>
                 {
                     b.HasOne("QuickBuy.Dominio.ObjetoDeValor.FormaPagamento", "FormaPagamento")
@@ -212,6 +207,13 @@ namespace QuickBuy.Repositorio.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("QuickBuy.Dominio.Entidades.Usuario", b =>
+                {
+                    b.HasOne("QuickBuy.Dominio.Entidades.Pedido", null)
+                        .WithMany("ItensPedido")
+                        .HasForeignKey("PedidoId");
                 });
 #pragma warning restore 612, 618
         }

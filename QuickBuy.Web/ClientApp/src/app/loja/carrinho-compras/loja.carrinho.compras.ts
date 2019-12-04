@@ -7,7 +7,7 @@ import { Produto } from "../../models/produto";
     styleUrls: ["./loja.carrinho.compras.css"]
 })
 export class LojaCarrinhoCompras {
-
+    
     public produtos: Produto[] = [];
 
     public adicionar(produto: Produto) {
@@ -27,6 +27,8 @@ export class LojaCarrinhoCompras {
         var produtoLocalStorage = localStorage.getItem("produtoLocalStorage");
         if (produtoLocalStorage) {
             return JSON.parse(produtoLocalStorage);
+        } else {
+            return this.produtos;
         }
     }
 
@@ -41,5 +43,14 @@ export class LojaCarrinhoCompras {
 
     public atualizar(produtos: Produto[]) {
         localStorage.setItem("produtoLocalStorage", JSON.stringify(produtos))
+    }
+
+    public temItensCarrinhoDeCompras(): boolean {
+        var itens = this.obterProdutos();
+        return (itens.length > 0);
+    }
+
+    public limparCarrinho() {
+        localStorage.setItem("produtoLocalStorage", "");
     }
 }

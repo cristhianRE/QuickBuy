@@ -6,14 +6,14 @@
     <input type="email" id="inputEmail"
            name="email" placeholder="Informe o seu Email"
            class="form-control mb-2"
-           [ngClass] ="{
+           [ngClass]="{
             'is-invalid' : email.invalid && (email.dirty || email.touched),
-            'is-valid' : email.valid && (email.dirty || email.touched) 
+            'is-valid' : email.valid && (email.dirty || email.touched)
            }"
            [(ngModel)]="usuario.email"
            #email="ngModel"
            required
-           email/>
+           email />
 
     <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
       <div *ngIf="email.errors.required">
@@ -28,9 +28,9 @@
     <input type="password" id="inputSenha"
            name="senha" placeholder="Senha"
            class="form-control mb-3"
-           [ngClass] ="{
+           [ngClass]="{
             'is-invalid' : senha.invalid && (senha.dirty || senha.touched),
-            'is-valid' : senha.valid && (senha.dirty || senha.touched) 
+            'is-valid' : senha.valid && (senha.dirty || senha.touched)
            }"
            [(ngModel)]="usuario.senha"
            #senha="ngModel"
@@ -53,11 +53,11 @@
       {{ mensagem }}
     </div>
 
-    <img src="..\..\..\..\..\..\..\..\..\..\img\free-online-photo-shop-1.png" />
-
     <div class="alert alert-primary" role="alert" *ngIf="usuarioAutenticado">
       Usuário Autenticado!
     </div>
+
+    <img src="assets/img/free-online-photo-shop-1.png" />
 
   </form>
 </div>

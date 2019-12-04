@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Usuario } from "../../models/usuario";
 import { Router, ActivatedRoute } from "@angular/router";
 import { UsuarioServico } from "../../servicos/usuario/usuario.servico";
-import { error } from "protractor";
 
 @Component({
     selector: "app-login",

@@ -40,12 +40,12 @@
                   <strong>Total:</strong>
                 </td>
                 <td>
-                  {{total | number:'1.0-2'}}
+                  <strong>R$ {{total | number:'1.0-2'}}</strong>
                 </td>
               </tr>
             </table>
           </div>
-          <button class="btn btn-danger" style="100%">Efetivar Compra</button>
+          <button class="btn btn-danger" (click)="efetivarCompra()" >Efetivar Compra</button>
         </div>
       </div>
     </div>
