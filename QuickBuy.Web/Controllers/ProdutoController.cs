@@ -9,8 +9,7 @@ using System.Linq;
 
 namespace QuickBuy.Web.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]"), ApiController]
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoRepositorio _repositorio;
